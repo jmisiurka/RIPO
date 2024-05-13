@@ -1,0 +1,3 @@
+.venv/
+program/yolov8n.pt
+program/yolov8x.pt

@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "program"
+version = "0.1.0"
+description = ""
+authors = ["Jakub <jakubmisiurka@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11.9"
+opencv-python = "^4.9.0.80"
+ultralytics = "^8.2.14"
+streamlit = "^1.34.0"
+numpy = "^1.26.4"
+
+[tool.poetry.scripts]
+vid = "program.__main__:main"
+train = "training.__train__:train"
+# detect = "program.__detect__:detect"
+# config = ""
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
