@@ -4,11 +4,11 @@ import cv2 as cv
 from .line_drawing import draw_lines
 from ultralytics import YOLO
 
-model = YOLO("runs/detect/tree8/weights/best.pt")
+model = YOLO("runs/detect/train4/weights/best.pt")
 
 def main():
-    # vid = cv.VideoCapture('../videos/video1.mp4')
-    vid = cv.VideoCapture(0)
+    vid = cv.VideoCapture('../videos/video1.mp4')
+    # vid = cv.VideoCapture(0)
     if not vid.isOpened():
         print("Not opened")
         exit()
