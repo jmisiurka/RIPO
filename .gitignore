@@ -4,3 +4,4 @@ program/yolov8x.pt
 program/*.pt
 training/
 videos/
+final_model/
