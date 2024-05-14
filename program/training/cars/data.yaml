@@ -1,0 +1,14 @@
+path: /home/jakub/Studia/ITE_6_SEM/RiPO/program/
+train: training/cars/train/images
+val: training/cars/valid/images
+test: training/cars/test/images
+
+nc: 1
+names: ['Car']
+
+roboflow:
+  workspace: tesis-3c464
+  project: parking-8lvoy
+  version: 3
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/tesis-3c464/parking-8lvoy/dataset/3

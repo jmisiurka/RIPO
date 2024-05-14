@@ -1,5 +1,5 @@
 from ultralytics import YOLO
 
-model = YOLO("runs/detect/tree5/weights/best.pt")
+model = YOLO("runs/detect/cars/weights/best.pt")
 
 result = model.track(source='../videos/video1.mp4', show=True)

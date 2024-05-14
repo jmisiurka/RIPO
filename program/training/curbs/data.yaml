@@ -1,0 +1,14 @@
+path: /home/jakub/Studia/ITE_6_SEM/RiPO/program/
+train: training/curbs/train/images
+val: training/curbs/valid/images
+test: training/curbs/test/images
+
+nc: 1
+names: ['curb']
+
+roboflow:
+  workspace: rad-khosh-kqqsc
+  project: curbs-bxcqk
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/rad-khosh-kqqsc/curbs-bxcqk/dataset/1

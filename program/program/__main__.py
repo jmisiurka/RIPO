@@ -2,10 +2,13 @@ import time
 import numpy as np
 import cv2 as cv
 from .line_drawing import draw_lines
+from ultralytics import YOLO
+
+model = YOLO("runs/detect/tree8/weights/best.pt")
 
 def main():
-    vid = cv.VideoCapture('../videos/video1.mp4')
-    # vid = cv.VideoCapture(0)
+    # vid = cv.VideoCapture('../videos/video1.mp4')
+    vid = cv.VideoCapture(0)
     if not vid.isOpened():
         print("Not opened")
         exit()
@@ -16,6 +19,8 @@ def main():
     while True:
         frame_processing_start = time.time()
         ret, frame = vid.read()
+
+        result = model(frame, stream=True)
 
         frame = cv.resize(frame, None, frame, 2, 2)
 
