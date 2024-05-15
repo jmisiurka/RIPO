@@ -1,9 +1,24 @@
 import numpy as np
 import cv2 as cv
+import json
 
-line_width_factor = .3
-line_height_factor = .95
-# convergence = 0.5
+line_spacing = .3
+line_length = .4
+width = 640
+height = 480
+
+total_length = line_length * height
+total_spacing = line_spacing * width
+
+def set_line_drawing_settings(settings):
+    global line_spacing, line_length, width, height, total_length, total_spacing
+    
+    line_spacing = settings['line_spacing']
+    line_length = settings['line_length']
+    width = settings['width']
+    height = settings['height']
+    total_length = line_length * height
+    total_spacing = line_spacing * width
 
 # def apply_distortion(frame):
     # map_x, map_y = np.meshgrid(np.arange(width), np.arange(height))
@@ -23,17 +38,36 @@ line_height_factor = .95
 
     # cv.remap(frame, )
 
-def draw_lines(frame, width, height):
-    overlay = np.copy(frame)
+def draw_lines_with_settings(frame, settings):
+    line_spacing = 1 - settings['line_spacing']
+    line_length = settings['line_length']
+    width = settings['width']
+    height = settings['height']
 
-    cv.line(overlay, (int(width * line_width_factor), int(height)), (int(width * line_width_factor), int(height * line_height_factor)), (0, 0, 255), 5)
-    cv.line(overlay, (int(width - width * (line_width_factor)), int(height)), (int(width - width * line_width_factor), int(height * line_height_factor)), (0, 0, 255), 5)
+    total_length = line_length * height
+    total_spacing = line_spacing * width
 
-    cv.line(overlay, (int(width * line_width_factor), int(height * line_height_factor)), (int(width * line_width_factor), int(height * line_height_factor ** 2)), (0, 255, 255), 5)
-    cv.line(overlay, (int(width - width * (line_width_factor)), int(height * line_height_factor)), (int(width - width * line_width_factor), int(height * line_height_factor ** 2)), (0, 255, 255), 5)
+    cv.line(frame, (int(.5 * total_spacing), int(height)), (int(.5 * total_spacing), int(height - total_length / 3)), (0, 0, 255), 5)
+    cv.line(frame, (int(width - .5 * total_spacing), int(height)), (int(width - .5 * total_spacing), int(height - total_length / 3)), (0, 0, 255), 5)
 
-    cv.line(overlay, (int(width * line_width_factor), int(height * line_height_factor ** 2)), (int(width * line_width_factor), int(height * line_height_factor ** 3)), (0, 255, 0), 5)
-    cv.line(overlay, (int(width - width * (line_width_factor)), int(height * line_height_factor ** 2)), (int(width - width * line_width_factor), int(height * line_height_factor ** 3)), (0, 255, 0), 5)
+    cv.line(frame, (int(.5 * width * line_spacing), int(height - total_length / 3)), (int(.5 * width * line_spacing), int(height - total_length * 2 / 3)), (0, 255, 255), 5)
+    cv.line(frame, (int(width - .5 * total_spacing), int(height - total_length / 3)), (int(width - .5 * total_spacing), int(height - total_length * 2 / 3)), (0, 255, 255), 5)
 
-    frame = cv.addWeighted(frame, 0, overlay, 1, 0)
+    cv.line(frame, (int(.5 * width * line_spacing), int(height - total_length * 2 / 3)), (int(.5 * width * line_spacing), int(height - total_length)), (0, 255, 0), 5)
+    cv.line(frame, (int(width - .5 * total_spacing), int(height - total_length * 2 / 3)), (int(width - .5 * total_spacing), int(height - total_length)), (0, 255, 0), 5)
+
+    return frame
+
+def draw_lines(frame):
+    
+    
+    cv.line(frame, (int(.5 * total_spacing), int(height)), (int(.5 * total_spacing), int(height - total_length / 3)), (0, 0, 255), 5)
+    cv.line(frame, (int(width - .5 * total_spacing), int(height)), (int(width - .5 * total_spacing), int(height - total_length / 3)), (0, 0, 255), 5)
+
+    cv.line(frame, (int(.5 * width * line_spacing), int(height - total_length / 3)), (int(.5 * width * line_spacing), int(height - total_length * 2 / 3)), (0, 255, 255), 5)
+    cv.line(frame, (int(width - .5 * total_spacing), int(height - total_length / 3)), (int(width - .5 * total_spacing), int(height - total_length * 2 / 3)), (0, 255, 255), 5)
+
+    cv.line(frame, (int(.5 * width * line_spacing), int(height - total_length * 2 / 3)), (int(.5 * width * line_spacing), int(height - total_length)), (0, 255, 0), 5)
+    cv.line(frame, (int(width - .5 * total_spacing), int(height - total_length * 2 / 3)), (int(width - .5 * total_spacing), int(height - total_length)), (0, 255, 0), 5)
+
     return frame
